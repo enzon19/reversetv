@@ -1,0 +1,2 @@
+<h1 class="text-2xl font-black text-center">A borboleta voou.</h1>
+<div class="mx-auto text-center">Refresh the page and, please, consider donating at <a href="https://ko-fi.com/enzon19" class="underline">https://ko-fi.com/enzon19</a></div>
