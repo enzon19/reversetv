@@ -1,7 +1,4 @@
-<!--  Client ID:     6333b476d5aaeff799c0174117cc247e7f81b4989a018a782b28bf0aaf7ab5a7
-Client Secret: d9774de0c6ce177dac9fbb713d5a5760fb6506fc2479f19dd1d1934aefba621b -->
-
-<script>
+<script lang="ts">
   import { PUBLIC_TRAKT_ID } from '$env/static/public';
   import { Button } from '$lib/elements/ui/button';
   import * as Alert from "$lib/elements/ui/alert/index.js";
@@ -9,7 +6,7 @@ Client Secret: d9774de0c6ce177dac9fbb713d5a5760fb6506fc2479f19dd1d1934aefba621b 
   import Bulb from 'svelte-ionicons/Bulb.svelte';
   import lodash from 'lodash';
 
-  export let data;
+  let { data } = $props();
   let {user, history} = data;
 </script>
 
@@ -19,8 +16,6 @@ Client Secret: d9774de0c6ce177dac9fbb713d5a5760fb6506fc2479f19dd1d1934aefba621b 
     <Alert.Title class="font-semibold">Tip</Alert.Title>
     <Alert.Description>You can change any <strong>trakt.tv</strong> url to <strong>reversetv.enzon19.com</strong> to know about the connections of that movie or show and your history. For example: trakt.tv/movies/the-matrix-1999 => reversetv.enzon19.com/movies/the-matrix-1999</Alert.Description>
   </Alert.Root>
-  <!-- {JSON.stringify(user?.user)} -->
-  <!-- <p>{JSON.stringify(history.sort((a, b) => (new Date(a.last_watched_at)) - (new Date(b.last_watched_at))).reverse().slice(0, 5), null, 2)}</p> -->
   <div class="container mt-2">
     <h2 class="text-2xl font-semibold text-center sm:text-left">Last Watched</h2>
     <div class="grid gap-3 mt-2" style="grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));">

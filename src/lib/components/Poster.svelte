@@ -3,12 +3,15 @@
 
   import { Skeleton } from "$lib/elements/ui/skeleton";
 
-  export let title;
-  export let id;
-  export let type;
-  export let href;
-  export let date; // optional
-  export let src; // optional
+  /** @type {{title: any, id: any, type: any, href: any, date: any, src: any}} */
+  let {
+    title,
+    id,
+    type,
+    href,
+    date,
+    src = $bindable()
+  } = $props();
 
   async function generateCover() {
     const headers = {

@@ -1,14 +1,14 @@
 <script>
 	import { cn } from "$lib/utils.js";
-	let className = undefined;
-	export let level = "h5";
-	export { className as class };
+	/** @type {{class?: any, level?: string, children?: import('svelte').Snippet, [key: string]: any}} */
+	let { class: className = undefined, level = "h5", children, ...rest } = $props();
+	
 </script>
 
 <svelte:element
 	this={level}
 	class={cn("mb-1 font-medium leading-none tracking-tight", className)}
-	{...$$restProps}
+	{...rest}
 >
-	<slot />
+	{@render children?.()}
 </svelte:element>

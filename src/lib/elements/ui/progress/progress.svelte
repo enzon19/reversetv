@@ -1,15 +1,14 @@
 <script>
 	import { Progress as ProgressPrimitive } from "bits-ui";
 	import { cn } from "$lib/utils.js";
-	let className = undefined;
-	export let max = 100;
-	export let value = undefined;
-	export { className as class };
+	/** @type {{class?: any, max?: number, value?: any, [key: string]: any}} */
+	let { class: className = undefined, max = 100, value = undefined, ...rest } = $props();
+	
 </script>
 
 <ProgressPrimitive.Root
 	class={cn("relative h-2 w-full overflow-hidden rounded-full bg-primary/20", className)}
-	{...$$restProps}
+	{...rest}
 >
 	<div
 		class="h-full w-full flex-1 bg-primary transition-all"

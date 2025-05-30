@@ -1,5 +1,6 @@
 <script>
-  export let data;
+  /** @type {{data: any}} */
+  let { data } = $props();
   // import { Button } from '$lib/elements/ui/button';
 </script>
 

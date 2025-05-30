@@ -1,8 +1,9 @@
 <script>
   import Poster from '$lib/components/Poster.svelte';
-  export let data;
-  $: query = data.query;
-  $: results = data.searchResults;
+  /** @type {{data: any}} */
+  let { data } = $props();
+  let query = $derived(data.query);
+  let results = $derived(data.searchResults);
   // $: console.log(results)
 </script>
 

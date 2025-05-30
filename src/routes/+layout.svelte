@@ -1,5 +1,7 @@
 <script>
-  import "../app.pcss";
+  import { preventDefault } from 'svelte/legacy';
+
+  import "../app.css";
   import { PUBLIC_TRAKT_ID } from "$env/static/public";
   import { Button } from "$lib/elements/ui/button";
   import * as Avatar from "$lib/elements/ui/avatar";
@@ -8,7 +10,8 @@
   import Search from "svelte-ionicons/Search.svelte";
   import { goto } from "$app/navigation";
 
-  export let data;
+  /** @type {{data: any, children?: import('svelte').Snippet}} */
+  let { data, children } = $props();
   let { user } = data;
 
   async function signOut() {
@@ -16,14 +19,14 @@
     goto("/out");
   }
 
-  let searchQuery = '';
+  let searchQuery = $state('');
   async function search() {
     goto('/search?q=' + encodeURIComponent(searchQuery));
   }
 </script>
 
 <header class="p-2 grid grid-cols-3 justify-between flex-wrap w-full z-40">
-  <form class="relative flex-1 md:grow-0" on:submit|preventDefault={search}>
+  <form class="relative flex-1 md:grow-0" onsubmit={preventDefault(search)}>
     <Search class="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground outline-none" />
     <Input
       type="search"
@@ -65,7 +68,7 @@
   {/if}
 </header>
 
-<div class="flex-grow p-2"><slot/></div>
+<div class="flex-grow p-2">{@render children?.()}</div>
 
 <footer class="bg-neutral-400 dark:bg-neutral-700 text-center text-sm p-2 z-30 mt-2">
   <span>Made by <a href="https://enzon19.com" class="underline">enzon19</a>. Donate at <a class="underline" href="https://ko-fi.com/enzon19">Ko-fi</a>.</span>

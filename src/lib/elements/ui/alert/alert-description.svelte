@@ -1,9 +1,10 @@
 <script>
 	import { cn } from "$lib/utils.js";
-	let className = undefined;
-	export { className as class };
+	/** @type {{class?: any, children?: import('svelte').Snippet, [key: string]: any}} */
+	let { class: className = undefined, children, ...rest } = $props();
+	
 </script>
 
-<div class={cn("text-sm [&_p]:leading-relaxed", className)} {...$$restProps}>
-	<slot />
+<div class={cn("text-sm [&_p]:leading-relaxed", className)} {...rest}>
+	{@render children?.()}
 </div>

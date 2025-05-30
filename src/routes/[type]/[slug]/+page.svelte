@@ -4,11 +4,12 @@
   import { Progress } from "$lib/elements/ui/progress/index.js";
   import Poster from '$lib/components/Poster.svelte';
 
-  export let data;
+  /** @type {{data: any}} */
+  let { data } = $props();
   let {user, type, id, acc, item} = data;
 
-  let progress = 0;
-  let progressMax = 1;
+  let progress = $state(0);
+  let progressMax = $state(1);
   let error;
   
   async function reverseTVMain() {
