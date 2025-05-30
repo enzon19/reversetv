@@ -34,7 +34,7 @@
       }
     }
 
-    console.log(result)
+    // console.log(result)
     return result;
     // (await getPersonCredits(credits[0].id)).filter(({id}) => history.includes(id))
   }

@@ -3,7 +3,7 @@
   export let data;
   $: query = data.query;
   $: results = data.searchResults;
-  $: console.log(results)
+  // $: console.log(results)
 </script>
 
 <div class="sm:container">
