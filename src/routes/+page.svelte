@@ -12,7 +12,7 @@
 
 {#if user}
   <Alert.Root class="bg-yellow-600/15 mb-6 container">
-    <Bulb class="outline-none" size="1rem"/>
+    <Bulb class="outline-hidden" size="1rem"/>
     <Alert.Title class="font-semibold">Tip</Alert.Title>
     <Alert.Description>You can change any <strong>trakt.tv</strong> url to <strong>reversetv.enzon19.com</strong> to know about the connections of that movie or show and your history. For example: trakt.tv/movies/the-matrix-1999 => reversetv.enzon19.com/movies/the-matrix-1999</Alert.Description>
   </Alert.Root>
@@ -33,10 +33,10 @@
         {@const itemType = item.show ? 'shows' : 'movies'}
         <Poster title={item.show?.title || item.movie?.title} id={item.show?.ids.tmdb || item.movie?.ids.tmdb} href={`/${itemType}/` + (item.show?.ids.slug || item.movie?.ids.slug)} type={itemType}/>
       {/each}
-    </div>
+    </div>  
   </div>
 {:else}
-  <h2 class="text-2xl container text-center mt-2">To start, please continue with Trakt.</h2>
-  <div class="text-neutral-800 dark:text-neutral-400 mt-2 text-center lg:w-[50%] mx-auto">Connect with Trakt to analyze common actors across your watched movies and TV shows, enhancing your viewing experience by highlighting connections between your consumed content.</div>
+  <h2 class="text-2xl container text-center mt-2 mx-auto">To start, please continue with Trakt.</h2>
+  <div class="text-neutral-800 dark:text-neutral-400 mt-2 text-center lg:w-[50%] mx-auto">Connect with Trakt to analyze common actors across your watched movies and TV shows, highlighting connections between the productions.</div>
   <!-- update: Divulgação material -->
 {/if}

@@ -27,7 +27,7 @@
 
 <header class="p-2 grid grid-cols-3 justify-between flex-wrap w-full z-40">
   <form class="relative flex-1 md:grow-0" onsubmit={preventDefault(search)}>
-    <Search class="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground outline-none" />
+    <Search class="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground outline-hidden" />
     <Input
       type="search"
       placeholder="Search..."
@@ -68,7 +68,7 @@
   {/if}
 </header>
 
-<div class="flex-grow p-2">{@render children?.()}</div>
+<div class="grow p-2">{@render children?.()}</div>
 
 <footer class="bg-neutral-400 dark:bg-neutral-700 text-center text-sm p-2 z-30 mt-2">
   <span>Made by <a href="https://enzon19.com" class="underline">enzon19</a>. Donate at <a class="underline" href="https://ko-fi.com/enzon19">Ko-fi</a>.</span>

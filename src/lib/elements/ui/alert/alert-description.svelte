@@ -1,10 +1,23 @@
-<script>
-	import { cn } from "$lib/utils.js";
-	/** @type {{class?: any, children?: import('svelte').Snippet, [key: string]: any}} */
-	let { class: className = undefined, children, ...rest } = $props();
-	
+<script lang="ts">
+	import type { HTMLAttributes } from "svelte/elements";
+	import { cn, type WithElementRef } from "$lib/utils.js";
+
+	let {
+		ref = $bindable(null),
+		class: className,
+		children,
+		...restProps
+	}: WithElementRef<HTMLAttributes<HTMLDivElement>> = $props();
 </script>
 
-<div class={cn("text-sm [&_p]:leading-relaxed", className)} {...rest}>
+<div
+	bind:this={ref}
+	data-slot="alert-description"
+	class={cn(
+		"text-muted-foreground col-start-2 grid justify-items-start gap-1 text-sm [&_p]:leading-relaxed",
+		className
+	)}
+	{...restProps}
+>
 	{@render children?.()}
 </div>
