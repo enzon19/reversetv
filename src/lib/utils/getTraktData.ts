@@ -32,6 +32,22 @@ export async function getShowData(slug) {
   return showData;
 }
 
+export async function getShowData(slug) {
+  const headers = {
+    'Content-Type': 'application/json',
+    'trakt-api-version': '2',
+    'trakt-api-key': PUBLIC_TRAKT_ID
+  };
+  
+  const showRequest = await fetch(`https://api.trakt.tv/shows/${slug}`, {
+    method: 'GET',
+    headers
+  });
+  const showData = await showRequest.json();
+
+  return showData;
+}
+
 export async function searchData(query) {
   const headers = {
     'Content-Type': 'application/json',
