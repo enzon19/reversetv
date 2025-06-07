@@ -29,9 +29,12 @@
   "dependencies": {
     "@sveltejs/adapter-vercel": "^5.3.0",
     "@tailwindcss/vite": "^4.1.8",
+    "@types/lodash": "^4.17.17",
+    "@types/luxon": "^3.6.2",
     "bits-ui": "^2.1.0",
     "clsx": "^2.1.0",
     "lodash": "^4.17.21",
+    "luxon": "^3.6.1",
     "prettier-plugin-svelte": "^3.4.0",
     "prettier-plugin-tailwindcss": "^0.6.12",
     "svelte-ionicons": "^1.1.2",
