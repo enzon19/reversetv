@@ -3,17 +3,22 @@ import type { HandleClientError } from '@sveltejs/kit';
 declare global {
 	namespace App {
 		interface Locals {
-			user: User;
+			username: string;
 		}
 		// interface Error {}
 		// interface PageData {}
 		// interface PageState {}
 		// interface Platform {}
 	}
-}
 
-type User = {
-	text: string;
-};
+	type User = {
+		username: string;
+		images: {
+			avatar: {
+				full: string;
+			};
+		};
+	};
+}
 
 export {};

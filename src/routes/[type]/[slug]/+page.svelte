@@ -17,7 +17,7 @@
 		const credits = type === 'movies' ? await getMovieCredits(id) : await getShowCredits(id);
 		progressMax = credits.length + 2;
 		progress += 1;
-		const history = await getUserFullHistoryIDs(user.user.username, acc);
+		const history = await getUserFullHistoryIDs(user.username, acc);
 		progress += 1;
 
 		for (const person of credits) {
@@ -61,7 +61,5 @@
 			{/if}
 			<Progress value={progress} max={progressMax} class="w-full" />
 		</div>
-	{:then peopleAndItems}
-		
 	{/await}
 </div>
