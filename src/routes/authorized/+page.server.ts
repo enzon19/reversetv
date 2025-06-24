@@ -1,8 +1,11 @@
 import { PUBLIC_TRAKT_ID, PUBLIC_HOSTNAME } from '$env/static/public';
 import { TRAKT_SECRET } from '$env/static/private';
-import { redirect } from '@sveltejs/kit';
+import { redirect, type ServerLoad } from '@sveltejs/kit';
 
-export async function load({ url, cookies }) {
+export const load: ServerLoad = async ({ url, cookies, parent }) => {
+	const { user } = await parent();
+	if (user) redirect(303, '/');
+
 	const code = url.searchParams.get('code');
 
 	const body = {
@@ -26,5 +29,4 @@ export async function load({ url, cookies }) {
 
 	if (data.error) return { error: data.error_description };
 	throw redirect(303, '/');
-	// return { code: data.access_token };
-}
+};

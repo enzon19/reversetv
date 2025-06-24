@@ -1,15 +1,12 @@
-<script>
-  /** @type {{data: any}} */
-  let { data } = $props();
-  // import { Button } from '$lib/elements/ui/button';
+<script lang="ts">
+	let {
+		data
+	}: {
+		data: {
+			error: string;
+		};
+	} = $props();
 </script>
 
-<!-- {#if data.code}
-  <div class="flex flex-col gap-1 mt-2">
-    <h2 class="text-2xl mx-auto">Nice! You're authenticate.</h2>
-    <Button href="/" class="mx-auto">Start</Button>
-  </div>
-{:else} -->
-  <h2 class="text-2xl container text-center mt-2 font-semibold">Ops.</h2>
-  <p class="text-sm container text-center text-neutral-500 font-semibold">{data.error}</p>
-<!-- {/if} -->
+<h2 class="container mt-2 text-center text-2xl font-semibold">Ops.</h2>
+<p class="container text-center text-sm font-semibold text-neutral-500">{data.error}</p>
