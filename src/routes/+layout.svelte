@@ -9,15 +9,22 @@
 	import { Input } from '$lib/elements/ui/input';
 
 	import Search from 'svelte-ionicons/Search.svelte';
-	
+
 	import { goto } from '$app/navigation';
 
 	let { data, children } = $props();
 	let { user } = data;
 
+	let open: boolean = $state(false);
 	async function signOut() {
-		await fetch('/out/sign');
-		goto('/out');
+		try {
+			const request = await fetch('/out/sign');
+			if (request.status !== 200) throw 'error';
+			open = false;
+			window.location.href = '/out';
+		} catch (e) {
+			console.error(e);
+		}
 	}
 
 	let searchQuery = $state('');
@@ -44,12 +51,12 @@
 
 	<div class="justify-self-end">
 		{#if user}
-			<Popover.Root>
-				<Popover.Trigger class="inline-flex items-center gap-2">
-					<span class="max-w-[100px] truncate">{user.user.username}</span>
+			<Popover.Root bind:open>
+				<Popover.Trigger class="inline-flex items-center gap-2 cursor-pointer">
+					<span class="max-w-[100px] truncate">{user.username}</span>
 					<Avatar.Root>
-						<Avatar.Image alt={user.user.username} src={user.user.images.avatar.full} />
-						<Avatar.Fallback>{user.user.username.toUpperCase()[0]}</Avatar.Fallback>
+						<Avatar.Image alt={user.username} src={user.images.avatar.full} />
+						<Avatar.Fallback>{user.username.toUpperCase()[0]}</Avatar.Fallback>
 					</Avatar.Root>
 				</Popover.Trigger>
 				<Popover.Content class="mt-1">

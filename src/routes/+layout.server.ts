@@ -1,7 +1,8 @@
 import { PUBLIC_TRAKT_ID } from '$env/static/public';
+import type { ServerLoad } from '@sveltejs/kit';
 
-export async function load({ cookies }) {
-	let user: User;
+export const load: ServerLoad = async ({ cookies }) => {
+	let user: User | undefined;
 
 	try {
 		const request = await fetch('https://api.trakt.tv/users/settings', {
@@ -15,8 +16,10 @@ export async function load({ cookies }) {
 		});
 
 		const data = await request.json();
-		user = data;
-	} catch (e) {}
+		user = data.user;
+	} catch (e) {
+		console.error('Error getting user:', e);
+	}
 
 	return { user };
-}
+};

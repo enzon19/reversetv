@@ -1,6 +1,6 @@
 import { PUBLIC_TRAKT_ID } from '$env/static/public';
 import { TRAKT_SECRET } from '$env/static/private';
-import type { RequestHandler } from './$types';
+import { error, type RequestHandler } from '@sveltejs/kit';
 
 export const GET: RequestHandler = async ({ cookies }) => {
 	const body = {
@@ -17,7 +17,6 @@ export const GET: RequestHandler = async ({ cookies }) => {
 		body: JSON.stringify(body)
 	});
 
-	console.log(request, request.status);
-
-	return new Response('Success');
+	if (request.status !== 200) return new Response('Error', { status: 500 });
+	return new Response('Success', { status: 200 });
 };
