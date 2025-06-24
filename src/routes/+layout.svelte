@@ -2,6 +2,7 @@
 	import '../app.css';
 
 	import { PUBLIC_TRAKT_ID, PUBLIC_HOSTNAME } from '$env/static/public';
+	import type { Snippet } from 'svelte';
 
 	import { Button } from '$lib/elements/ui/button';
 	import * as Avatar from '$lib/elements/ui/avatar';
@@ -12,7 +13,13 @@
 
 	import { goto } from '$app/navigation';
 
-	let { data, children } = $props();
+	let {
+		data,
+		children
+	}: {
+		data: { user: User | undefined };
+		children: Snippet;
+	} = $props();
 	let { user } = data;
 
 	let open: boolean = $state(false);
@@ -52,7 +59,7 @@
 	<div class="justify-self-end">
 		{#if user}
 			<Popover.Root bind:open>
-				<Popover.Trigger class="inline-flex items-center gap-2 cursor-pointer">
+				<Popover.Trigger class="inline-flex cursor-pointer items-center gap-2">
 					<span class="max-w-[100px] truncate">{user.username}</span>
 					<Avatar.Root>
 						<Avatar.Image alt={user.username} src={user.images.avatar.full} />
@@ -78,8 +85,9 @@
 
 <footer class="z-30 mt-2 bg-neutral-400 p-2 text-center text-sm dark:bg-neutral-700">
 	<span
-		>Made by <a href="https://enzon19.com" class="underline">enzon19</a>. Make a donation
-		<a class="underline" href="https://enzon19.com/donate">here</a>.</span
+		>Made by <a href="https://enzon19.com" class="underline" target="_blank">enzon19</a>. Make a
+		donation
+		<a class="underline" href="https://enzon19.com/donate" target="_blank">here</a>.</span
 	>
 </footer>
 
