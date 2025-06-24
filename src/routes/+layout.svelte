@@ -1,11 +1,15 @@
 <script lang="ts">
 	import '../app.css';
+
 	import { PUBLIC_TRAKT_ID, PUBLIC_HOSTNAME } from '$env/static/public';
+
 	import { Button } from '$lib/elements/ui/button';
 	import * as Avatar from '$lib/elements/ui/avatar';
 	import * as Popover from '$lib/elements/ui/popover';
 	import { Input } from '$lib/elements/ui/input';
+
 	import Search from 'svelte-ionicons/Search.svelte';
+	
 	import { goto } from '$app/navigation';
 
 	let { data, children } = $props();

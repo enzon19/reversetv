@@ -7,12 +7,13 @@ export async function load({ params, cookies, parent }) {
 
 	const item =
 		params.type === 'movies' ? await getMovieData(params.slug) : await getShowData(params.slug);
+		console.log(item)
 
 	return {
 		item,
 		id: item.ids.tmdb,
 		type: params.type,
-		traktURL: params.type + params.slug,
+		traktURL: params.type + '/' + params.slug,
 		acc: cookies.get('access_token')
 	};
 }

@@ -1,8 +1,11 @@
 <script lang="ts">
 	import { PUBLIC_HOSTNAME } from '$env/static/public';
+
 	import * as Alert from '$lib/elements/ui/alert/index';
 	import Poster from '$lib/components/Poster.svelte';
+
 	import Bulb from 'svelte-ionicons/Bulb.svelte';
+	
 	import lodash from 'lodash';
 
 	let { data } = $props();

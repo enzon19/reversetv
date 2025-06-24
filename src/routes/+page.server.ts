@@ -1,15 +1,15 @@
 import { PUBLIC_TRAKT_ID } from '$env/static/public';
-import {getUserMoviesHistory, getUserShowsHistory} from '$lib/utils/getUserHistory';
+import { getUserMoviesHistory, getUserShowsHistory } from '$lib/utils/getUserHistory';
 
-export async function load({parent, cookies}) {
-  const { user } = await parent();
+export async function load({ parent, cookies }) {
+	const { user } = await parent();
 
-  if (!user) return {};
-  
-  const movies = await getUserMoviesHistory(user.user.username, cookies.get('access_token'));
-  const shows = await getUserShowsHistory(user.user.username, cookies.get('access_token'));
+	if (!user) return {};
 
-  const history = [...movies, ...shows];
+	const movies = await getUserMoviesHistory(user.user.username, cookies.get('access_token'));
+	const shows = await getUserShowsHistory(user.user.username, cookies.get('access_token'));
 
-  return {history};
-};
+	const history = [...movies, ...shows];
+
+	return { history };
+}
