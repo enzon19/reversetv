@@ -1,6 +1,6 @@
 import { PUBLIC_TRAKT_ID } from '$env/static/public';
 import { TRAKT_SECRET } from '$env/static/private';
-import { error, type RequestHandler } from '@sveltejs/kit';
+import type { RequestHandler } from './$types';
 
 export const GET: RequestHandler = async ({ cookies }) => {
 	const body = {

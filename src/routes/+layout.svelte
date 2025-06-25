@@ -13,13 +13,7 @@
 
 	import { goto } from '$app/navigation';
 
-	let {
-		data,
-		children
-	}: {
-		data: { user: User | undefined };
-		children: Snippet;
-	} = $props();
+	let { data, children } = $props();
 	let { user } = data;
 
 	let open: boolean = $state(false);

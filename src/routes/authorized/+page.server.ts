@@ -1,8 +1,9 @@
 import { PUBLIC_TRAKT_ID, PUBLIC_HOSTNAME } from '$env/static/public';
 import { TRAKT_SECRET } from '$env/static/private';
-import { redirect, type ServerLoad } from '@sveltejs/kit';
+import { redirect } from '@sveltejs/kit';
+import type { PageServerLoad } from './$types';
 
-export const load: ServerLoad = async ({ url, cookies, parent }) => {
+export const load: PageServerLoad = async ({ url, cookies, parent }) => {
 	const { user } = await parent();
 	if (user) redirect(303, '/');
 
