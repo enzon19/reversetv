@@ -8,6 +8,7 @@
     "preview": "vite preview"
   },
   "devDependencies": {
+    "@iconify-json/ion": "^1.2.4",
     "@internationalized/date": "^3.8.2",
     "@lucide/svelte": "^0.511.0",
     "@sveltejs/adapter-auto": "^3.3.1",
@@ -38,7 +39,6 @@
     "luxon": "^3.6.1",
     "prettier-plugin-svelte": "^3.4.0",
     "prettier-plugin-tailwindcss": "^0.6.13",
-    "svelte-ionicons": "^1.1.2",
     "tailwind-merge": "^2.6.0",
     "tailwind-variants": "^1.0.0",
     "unplugin-icons": "^22.1.0"
