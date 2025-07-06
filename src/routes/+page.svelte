@@ -13,6 +13,10 @@
 	let { user, history } = data;
 </script>
 
+<svelte:head>
+	<title>ReverseTV for Trakt</title>
+</svelte:head>
+
 {#if user}
 	<Alert.Root class="mx-auto mb-2 max-w-max bg-yellow-600/15">
 		<Bulb class="outline-hidden" size="1rem" />
