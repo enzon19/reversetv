@@ -54,6 +54,24 @@ export async function getSeasonCredits(showID: number, seasonNumber: number) {
 	return creditsData.cast;
 }
 
+export async function getEpisodeCredits(showID: number, itemsNumber: string) {
+	const headers = {
+		accept: 'application/json',
+		Authorization: `Bearer ${PUBLIC_TMDB_KEY}`
+	};
+
+	const creditsRequest = await fetch(
+		`https://api.themoviedb.org/3/tv/${showID}/season/${itemsNumber[0]}/episode/${itemsNumber[1]}/credits?language=en-US`,
+		{
+			method: 'GET',
+			headers
+		}
+	);
+	const creditsData = await creditsRequest.json();
+
+	return creditsData.cast;
+}
+
 export async function getPersonCredits(personID: number) {
 	const headers = {
 		accept: 'application/json',
