@@ -1,8 +1,8 @@
-import {searchData} from '$lib/utils/getTraktData';
+import { searchData } from '$lib/utils/getTraktData';
 
 export async function load({ url }) {
-  const query = url.searchParams.get('q');
-  const searchResults = await searchData(query);
-  
-  return {query, searchResults};
-};
+	const query = url.searchParams.get('q')?.toString();
+	const searchResults = await searchData(query);
+
+	return { query, searchResults };
+}

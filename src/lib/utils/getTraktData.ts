@@ -38,7 +38,7 @@ export async function getShowData(slug: string) {
 	return showData as TraktItemData;
 }
 
-export async function searchData(query: string) {
+export async function searchData(query?: string) {
 	const headers = {
 		'Content-Type': 'application/json',
 		'trakt-api-version': '2',
