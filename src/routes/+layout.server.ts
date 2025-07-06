@@ -2,7 +2,7 @@ import { PUBLIC_TRAKT_ID } from '$env/static/public';
 import type { LayoutServerLoad } from './$types';
 
 export const load: LayoutServerLoad = async ({ cookies }) => {
-	let user: User | undefined;
+	let user: TraktUser | undefined;
 
 	try {
 		const request = await fetch('https://api.trakt.tv/users/settings', {

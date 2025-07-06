@@ -1,23 +1,9 @@
 import { PUBLIC_TRAKT_ID } from '$env/static/public';
 
-export type IDs = {
-	trakt: number;
-	tvdb: number;
-	imdb: string;
-	tmdb: number;
-	tvrage: any;
-};
-
-export type TraktShow = {
+export type TraktItemData = {
 	title: string;
 	year: number;
-	ids: IDs;
-	episodes: {
-		season: number;
-		number: number;
-		title: string;
-		ids: IDs;
-	}[];
+	ids: TraktIDs;
 };
 
 export async function getMovieData(slug: string) {
@@ -33,7 +19,7 @@ export async function getMovieData(slug: string) {
 	});
 	const movieData = await movieRequest.json();
 
-	return movieData;
+	return movieData as TraktItemData;
 }
 
 export async function getShowData(slug: string) {
@@ -49,16 +35,7 @@ export async function getShowData(slug: string) {
 	});
 	const showData = await showRequest.json();
 
-	const seasonRequest = await fetch(
-		`https://api.trakt.tv/shows/${slug}/seasons?extended=episodes`,
-		{
-			method: 'GET',
-			headers
-		}
-	);
-	const seasonData = await seasonRequest.json();
-
-	return { ...showData, episodes: seasonData.map((e: any) => e.episodes.length) } as TraktShow;
+	return showData as TraktItemData;
 }
 
 export async function searchData(query: string) {
