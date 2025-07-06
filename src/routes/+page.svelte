@@ -2,11 +2,12 @@
 	import { PUBLIC_HOSTNAME } from '$env/static/public';
 
 	import * as Alert from '$lib/elements/ui/alert/index';
-	import Poster from '$lib/components/Poster.svelte';
 
-	import Bulb from 'svelte-ionicons/Bulb.svelte';
-	
+	import Bulb from '~icons/ion/bulb';
+
 	import lodash from 'lodash';
+	import Poster from '$lib/components/Poster.svelte';
+	import PosterGrid from '$lib/components/PosterGrid.svelte';
 
 	let { data } = $props();
 	let { user, history } = data;
@@ -28,21 +29,11 @@
 	</Alert.Root>
 	<div class="flex flex-col gap-2">
 		<h2 class="text-center text-2xl font-semibold sm:text-left">Last Watched</h2>
-		<div class="mt-2 grid grid-cols-[repeat(auto-fill,_minmax(170px,_1fr))] gap-3">
-			{#each history
+		<PosterGrid
+			data={history
 				.sort((a, b) => new Date(a.last_watched_at) - new Date(b.last_watched_at))
-				.reverse()
-				.slice(0, 8) as item}
-				{@const itemType = item.show ? 'shows' : 'movies'}
-				<Poster
-					title={item.show?.title || item.movie?.title}
-					id={item.show?.ids?.tmdb || item.movie?.ids?.tmdb}
-					href={`/${itemType}/` + (item.show?.ids?.slug || item.movie?.ids?.slug)}
-					date={item?.last_watched_at}
-					type={itemType}
-				/>
-			{/each}
-		</div>
+				.reverse()}
+		/>
 	</div>
 	<div class="flex flex-col gap-2">
 		<div class="flex flex-col gap-1">
@@ -54,18 +45,7 @@
 				></span
 			>
 		</div>
-		<div class="mt-2 grid grid-cols-[repeat(auto-fill,_minmax(170px,_1fr))] gap-3">
-			{#each lodash.shuffle(history).slice(0, 8) as item}
-				{@const itemType = item.show ? 'shows' : 'movies'}
-				<Poster
-					title={item.show?.title || item.movie?.title}
-					id={item.show?.ids.tmdb || item.movie?.ids.tmdb}
-					href={`/${itemType}/` + (item.show?.ids.slug || item.movie?.ids.slug)}
-					date={item?.last_watched_at}
-					type={itemType}
-				/>
-			{/each}
-		</div>
+		<PosterGrid data={lodash.shuffle(history)} />
 	</div>
 {:else}
 	<h2 class="container mx-auto mt-2 text-center text-2xl">To start, please continue with Trakt.</h2>

@@ -9,7 +9,7 @@
 	import * as Popover from '$lib/elements/ui/popover';
 	import { Input } from '$lib/elements/ui/input';
 
-	import Search from 'svelte-ionicons/Search.svelte';
+	import Search from '~icons/ion/search';
 
 	import { goto } from '$app/navigation';
 

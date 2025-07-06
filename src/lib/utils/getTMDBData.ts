@@ -1,13 +1,13 @@
 import { PUBLIC_TMDB_KEY } from '$env/static/public';
 
-export async function getMovieCredits(id) {
+export async function getMovieCredits(movieID: number) {
 	const headers = {
 		accept: 'application/json',
 		Authorization: `Bearer ${PUBLIC_TMDB_KEY}`
 	};
 
 	const creditsRequest = await fetch(
-		`https://api.themoviedb.org/3/movie/${id}/credits?language=en-US`,
+		`https://api.themoviedb.org/3/movie/${movieID}/credits?language=en-US`,
 		{
 			method: 'GET',
 			headers
@@ -18,14 +18,14 @@ export async function getMovieCredits(id) {
 	return creditsData.cast;
 }
 
-export async function getShowCredits(id) {
+export async function getShowCredits(showID: number) {
 	const headers = {
 		accept: 'application/json',
 		Authorization: `Bearer ${PUBLIC_TMDB_KEY}`
 	};
 
 	const creditsRequest = await fetch(
-		`https://api.themoviedb.org/3/tv/${id}/aggregate_credits?language=en-US`,
+		`https://api.themoviedb.org/3/tv/${showID}/aggregate_credits?language=en-US`,
 		{
 			method: 'GET',
 			headers
@@ -36,16 +36,37 @@ export async function getShowCredits(id) {
 	return creditsData.cast;
 }
 
-export async function getPersonCredits(id) {
+export async function getSeasonCredits(showID: number, seasonNumber: number) {
 	const headers = {
 		accept: 'application/json',
 		Authorization: `Bearer ${PUBLIC_TMDB_KEY}`
 	};
 
-	const creditsRequest = await fetch(`https://api.themoviedb.org/3/person/${id}/combined_credits`, {
-		method: 'GET',
-		headers
-	});
+	const creditsRequest = await fetch(
+		`https://api.themoviedb.org/3/tv/${showID}/season/${seasonNumber}/aggregate_credits?language=en-US`,
+		{
+			method: 'GET',
+			headers
+		}
+	);
+	const creditsData = await creditsRequest.json();
+
+	return creditsData.cast;
+}
+
+export async function getPersonCredits(personID: number) {
+	const headers = {
+		accept: 'application/json',
+		Authorization: `Bearer ${PUBLIC_TMDB_KEY}`
+	};
+
+	const creditsRequest = await fetch(
+		`https://api.themoviedb.org/3/person/${personID}/combined_credits`,
+		{
+			method: 'GET',
+			headers
+		}
+	);
 	let creditsData = await creditsRequest.json();
 
 	for (const credit of creditsData.cast) {

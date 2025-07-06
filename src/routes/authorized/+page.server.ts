@@ -29,5 +29,5 @@ export const load: PageServerLoad = async ({ url, cookies, parent }) => {
 	cookies.set('access_token', data.access_token, { path: '/' });
 
 	if (data.error) return { error: data.error_description };
-	throw redirect(303, '/');
+	redirect(303, '/');
 };
