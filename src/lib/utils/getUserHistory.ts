@@ -18,6 +18,11 @@ export type TraktShow = {
 	last_watched_at: string;
 	last_updated_at: string;
 	reset_at: string;
+	show: {
+		title: string;
+		year: number;
+		ids: TraktIDs;
+	};
 	seasons: {
 		number: Number;
 		episodes: {
@@ -87,7 +92,7 @@ export async function getUserShowsHistory(username: string, acc?: string) {
 		method: 'GET',
 		headers
 	});
-
+	
 	const showsData: TraktShow[] = await showsRequest.json();
 	return showsData.map((e) => ({ ...e, type: 'show' as const }));
 }
@@ -119,6 +124,7 @@ export async function getUserFullHistoryIDs(
 ) {
 	const movies = await getUserMoviesHistory(username, acc);
 	const shows = await getUserShowsHistory(username, acc);
+
 	return [
 		...movies.map(({ movie }) => 'm_' + movie.ids[type]),
 		...shows.map(({ show }) => 't_' + show.ids[type])
