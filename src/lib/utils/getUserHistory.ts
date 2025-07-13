@@ -92,7 +92,7 @@ export async function getUserShowsHistory(username: string, acc?: string) {
 		method: 'GET',
 		headers
 	});
-	
+
 	const showsData: TraktShow[] = await showsRequest.json();
 	return showsData.map((e) => ({ ...e, type: 'show' as const }));
 }
@@ -130,16 +130,3 @@ export async function getUserFullHistoryIDs(
 		...shows.map(({ show }) => 't_' + show.ids[type])
 	];
 }
-
-// https://developer.themoviedb.org/reference/tv-series-aggregate-credits
-/* [
-     223,  41059, 753342,    213, 572802, 559969,
-  438631, 401981,  72241,  43739,  34689,  31602,
-   30159,  28580,  24973,  18299,  16515,  13528,
-   10785,   6620,   4808,   4175,   2690,    907,
-     702,    595,    574,  65494,  63639,  60622,
-  135918,  95888,  44264, 211180,  60574,  82856,
-    1438,   4194,  85862,  56570,  94997,   1399,
-   67198,   2419,  44217,  65708,  84534, 156993,
-   64684,  71712,  81723,  63247,   1396,  84773
-]*/
