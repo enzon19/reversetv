@@ -40,7 +40,7 @@
 		<Search class="text-muted-foreground absolute top-2.5 left-2.5 h-4 w-4" />
 		<Input
 			type="search"
-			placeholder="Search..."
+			placeholder="Search movies and shows..."
 			bind:value={searchQuery}
 			class="w-full max-w-48 rounded-lg bg-neutral-300 pl-8 sm:max-w-64 lg:max-w-80 dark:bg-neutral-600"
 		/>
