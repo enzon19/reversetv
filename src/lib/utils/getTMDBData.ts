@@ -154,9 +154,9 @@ export async function getSeasonCredits(showID: number, seasonNumber: number) {
 			headers
 		}
 	);
-	const creditsData = await creditsRequest.json();
+	const creditsData = (await creditsRequest.json()) as TMDBShowCredits;
 
-	return creditsData.cast as TMDBShowCredits;
+	return creditsData.cast;
 }
 
 export async function getEpisodeCredits(showID: number, itemsNumber: number[]) {
