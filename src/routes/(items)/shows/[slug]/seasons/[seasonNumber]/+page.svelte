@@ -21,7 +21,7 @@
 		<h2 class="text-xl font-semibold">Season {seasonNumber}</h2>
 	</div>
 	{#if page == 'select'}
-		<div class="grid grid-cols-[repeat(auto-fit,_minmax(200px,_1fr))] gap-4">
+		<div class="grid grid-cols-[repeat(auto-fit,_minmax(200px,_1fr))] gap-2 md:gap-4">
 			{#each item.seasons.find((e) => e?.number === seasonNumber)?.episodes || [] as episode}
 				<a
 					href="/shows/{item.ids.slug}/seasons/{seasonNumber}/episodes/{episode.number}"

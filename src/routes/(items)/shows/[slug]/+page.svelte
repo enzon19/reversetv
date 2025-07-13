@@ -14,7 +14,7 @@
 
 <Details {item} {type}
 	>{#if page == 'select'}
-		<div class="grid grid-cols-[repeat(auto-fit,_minmax(200px,_1fr))] gap-4">
+		<div class="mt-2 grid grid-cols-[repeat(auto-fit,_minmax(200px,_1fr))] gap-2 md:mt-0 md:gap-4">
 			{#each item.seasons as season}
 				<a
 					href="/shows/{item.ids.slug}/seasons/{season.number}"
