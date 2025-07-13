@@ -7,9 +7,11 @@ export async function load({ params, cookies }) {
 	let seasonNumber = parseInt(params.seasonNumber || '1');
 
 	if (isNaN(seasonNumber)) redirect(303, '/shows/' + params.slug);
+
 	const showHistoryForUser = await getShowHistory(slug, cookies.get('access_token')); // for seasons, episodes + progress
-	if (seasonNumber > showHistoryForUser.seasons.length - 1 || seasonNumber < 0)
-		redirect(303, '/shows/' + params.slug);
+
+	const season = showHistoryForUser.seasons.find((e) => e.number === seasonNumber);
+	if (!season) redirect(303, '/shows/' + params.slug);
 
 	const showData = await getShowData(slug); // basic info
 

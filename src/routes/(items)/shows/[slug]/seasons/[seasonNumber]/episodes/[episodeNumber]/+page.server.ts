@@ -9,13 +9,16 @@ export async function load({ params, cookies }) {
 
 	if (isNaN(seasonNumber)) redirect(303, '/shows/' + params.slug);
 	if (isNaN(episodeNumber)) redirect(303, `/shows/${params.slug}/seasons/${params.seasonNumber}`);
-	const showHistoryForUser = await getShowHistory(slug, cookies.get('access_token')); // for seasons, episodes + progress
-	if (seasonNumber > showHistoryForUser.seasons.length - 1 || seasonNumber < 0)
-		redirect(303, '/shows/' + params.slug);
-	if (episodeNumber > showHistoryForUser.seasons[seasonNumber].aired || episodeNumber < 1)
+
+	const showHistoryForUser = await getShowHistory(slug, cookies.get('access_token'));
+
+	const season = showHistoryForUser.seasons.find((e) => e.number === seasonNumber);
+	if (!season) redirect(303, '/shows/' + params.slug);
+
+	if (episodeNumber > season.aired || episodeNumber < 1)
 		redirect(303, `/shows/${params.slug}/seasons/${params.seasonNumber}`);
 
-	const showData = await getShowData(slug); // basic info
+	const showData = await getShowData(slug);
 
 	return {
 		item: { ...showData, ...showHistoryForUser },
