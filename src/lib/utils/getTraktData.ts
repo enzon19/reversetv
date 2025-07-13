@@ -6,6 +6,13 @@ export type TraktItemData = {
 	ids: TraktIDs;
 };
 
+export type TraktSearchResult = {
+	type: 'movie' | 'show';
+	score: number;
+	show?: TraktItemData;
+	movie?: TraktItemData;
+}[];
+
 export async function getMovieData(slug: string) {
 	const headers = {
 		'Content-Type': 'application/json',
@@ -51,5 +58,5 @@ export async function searchData(query?: string) {
 	});
 	const searchResponse = await searchRequest.json();
 
-	return searchResponse;
+	return searchResponse as TraktSearchResult;
 }
