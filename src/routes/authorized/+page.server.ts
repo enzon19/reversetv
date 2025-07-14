@@ -8,6 +8,7 @@ export const load: PageServerLoad = async ({ url, cookies, parent }) => {
 	if (user) redirect(303, '/');
 
 	const code = url.searchParams.get('code');
+	if (!code) return { error: 'Code not found' };
 
 	const body = {
 		code,
@@ -26,8 +27,20 @@ export const load: PageServerLoad = async ({ url, cookies, parent }) => {
 	});
 
 	const data = await request.json();
-	cookies.set('access_token', data.access_token, { path: '/' });
-
 	if (data.error) return { error: data.error_description };
+
+	cookies.set('access_token', data.access_token, {
+		httpOnly: true,
+		secure: true,
+		path: '/',
+		maxAge: 60 * 60 * 24
+	});
+
+	cookies.set('refresh_token', data.refresh_token, {
+		httpOnly: true,
+		secure: true,
+		path: '/'
+	});
+
 	redirect(303, '/');
 };
