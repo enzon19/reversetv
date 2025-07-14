@@ -6,8 +6,8 @@
 	import Bulb from '~icons/ion/bulb';
 
 	import lodash from 'lodash';
-	import Poster from '$lib/components/Poster.svelte';
 	import PosterGrid from '$lib/components/PosterGrid.svelte';
+	import { DateTime } from 'luxon';
 
 	let { data } = $props();
 	let { user, history } = data;
@@ -19,7 +19,7 @@
 
 {#if user}
 	<Alert.Root class="mx-auto mb-2 max-w-max bg-yellow-600/15">
-		<Bulb class="outline-hidden" size="1rem" />
+		<Bulb class="size-4 outline-hidden" />
 		<Alert.Title class="font-semibold">Tip</Alert.Title>
 		<Alert.Description
 			>You can change any <strong>trakt.tv</strong> url to
@@ -35,8 +35,13 @@
 		<h2 class="text-center text-2xl font-semibold sm:text-left">Last Watched</h2>
 		<PosterGrid
 			data={history
-				.sort((a, b) => new Date(a.last_watched_at) - new Date(b.last_watched_at))
-				.reverse()}
+				?.sort(
+					(a, b) =>
+						DateTime.fromISO(a.last_watched_at).toMillis() -
+						DateTime.fromISO(b.last_watched_at).toMillis()
+				)
+				?.reverse() || []}
+			limit="dynamic"
 		/>
 	</div>
 	<div class="flex flex-col gap-2">
@@ -49,7 +54,7 @@
 				></span
 			>
 		</div>
-		<PosterGrid data={lodash.shuffle(history)} />
+		<PosterGrid data={lodash.shuffle(history)} limit="dynamic" />
 	</div>
 {:else}
 	<h2 class="container mx-auto mt-2 text-center text-2xl">To start, please continue with Trakt.</h2>
@@ -57,5 +62,5 @@
 		Connect with Trakt to analyze common actors across your watched movies and TV shows,
 		highlighting connections between the productions.
 	</div>
-	<!-- update: Divulgação material -->
+	<!-- TODO: Divulgação material -->
 {/if}

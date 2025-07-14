@@ -1,15 +1,17 @@
 <script lang="ts">
 	import Poster from '$lib/components/Poster.svelte';
+	import type {
+		TMDBMovieCastMember,
+		TMDBPersonCastMember,
+		TMDBShowCastMember
+	} from '$lib/utils/getTMDBData';
 
 	let {
 		data
 	}: {
 		data: {
-			person: {
-				name: string;
-				roles: string[];
-			};
-			items: string[];
+			person: TMDBMovieCastMember | TMDBShowCastMember;
+			items: TMDBPersonCastMember[];
 		}[];
 	} = $props();
 </script>
@@ -29,17 +31,29 @@
 					</h1>
 					<span class="font-normal text-neutral-600 dark:text-neutral-300"
 						>as <span class="font-medium"
-							>{person.character || person.roles.map((e) => e.character).join(', ')}</span
+							>{'character' in person
+								? person.character
+								: person.roles?.map((e) => e.character).join(', ')}</span
 						></span
 					>
 				</div>
 			</div>
 			<div
-				class="mt-2 grid gap-3"
-				style="grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));"
+				class="mt-2 grid grid-cols-[repeat(auto-fill,_minmax(170px,_1fr))] gap-0 gap-y-3 sm:gap-3"
 			>
 				{#each items as item}
-					<Poster title={item.character} src="https://image.tmdb.org/t/p/w200{item.poster_path}" />
+					<!-- href={`/${itemType}s/` + (item.show?.ids?.slug || item.movie?.ids?.slug)} -->
+					{@const itemType = item.media_type === 'tv' ? 'show' : 'movie'}
+					<div class="flex-1 basis-1/3">
+						<Poster
+							title={item.character}
+							id={item.id}
+							type={itemType}
+							src={item?.poster_path
+								? 'https://image.tmdb.org/t/p/w200' + item.poster_path
+								: undefined}
+						/>
+					</div>
 				{/each}
 			</div>
 		</div>
