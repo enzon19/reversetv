@@ -57,10 +57,11 @@
 		<PosterGrid data={lodash.shuffle(history)} limit="dynamic" />
 	</div>
 {:else}
-	<h2 class="container mx-auto mt-2 text-center text-2xl">To start, please continue with Trakt.</h2>
+	<h2 class="container mx-auto mt-2 text-center text-3xl font-extrabold">To start, please continue with Trakt.</h2>
 	<div class="mx-auto mt-2 text-center text-neutral-800 lg:w-[50%] dark:text-neutral-400">
 		Connect with Trakt to discover other appearances that each actor in a movie or series has had in
 		other productions based on your history.
 	</div>
-	<!-- TODO: Divulgação material -->
+	<h3 class="text-xl text-center font-bold">It's simple: just click a movie or show and see the results.</h3>
+	<img src="https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExNHc2ZXJ4MTB1dXU4bmUzaXg1ZzFudHNnOG01dXc2ODI1MTlxczV5bCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/6l8WvqAfhPfGuOA2O9/giphy.gif" class="max-h-92 w-min mx-auto dark:drop-shadow-primary/20 dark:drop-shadow-[0_0_25px_rgba(0,0,0,0.25)]" alt="How to use ReverseTV">
 {/if}
