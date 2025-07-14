@@ -14,7 +14,7 @@
 	bind:this={ref}
 	data-slot="alert-description"
 	class={cn(
-		'text-muted-foreground col-start-2 text-sm [&_p]:leading-relaxed',
+		'col-start-2 text-sm text-neutral-700 dark:text-neutral-300 [&_p]:leading-relaxed',
 		className
 	)}
 	{...restProps}
