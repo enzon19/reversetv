@@ -12,10 +12,7 @@
 
 <div class="sm:container">
 	<h1 class="mb-2 text-center text-3xl font-black sm:text-left">Results for "{query}"</h1>
-	<div
-		class="mt-2 grid gap-3"
-		style="grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));"
-	>
+	<div class="mt-2 grid grid-cols-[repeat(auto-fill,_minmax(170px,_1fr))] gap-0 gap-y-3 sm:gap-3">
 		{#each results as item}
 			<Poster
 				title={item?.[item.type]?.title || ''}
