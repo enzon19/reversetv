@@ -12,7 +12,7 @@
 		src = $bindable()
 	}: {
 		title: string;
-		id: string;
+		id: string | number;
 		type: 'movie' | 'show';
 		href?: string;
 		date?: string;

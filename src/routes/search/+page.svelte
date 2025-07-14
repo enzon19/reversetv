@@ -1,10 +1,9 @@
-<script>
+<script lang="ts">
 	import Poster from '$lib/components/Poster.svelte';
-	/** @type {{data: any}} */
+
 	let { data } = $props();
-	let query = $derived(data.query);
+	let query = $derived(data.query || '');
 	let results = $derived(data.searchResults);
-	// $: console.log(results)
 </script>
 
 <svelte:head>
@@ -19,10 +18,10 @@
 	>
 		{#each results as item}
 			<Poster
-				title={item[item.type].title}
-				id={item[item.type].ids.tmdb}
-				href={`/${item.type}s/` + item[item.type].ids.slug}
-				type={item.type + 's'}
+				title={item?.[item.type]?.title || ''}
+				id={item?.[item.type]?.ids?.tmdb || 0}
+				type={item.type}
+				href={`/${item.type}s/` + item?.[item.type]?.ids?.slug}
 			/>
 		{/each}
 	</div>
