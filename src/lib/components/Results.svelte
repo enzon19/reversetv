@@ -12,6 +12,9 @@
 		type TMDBPersonCastMember
 	} from '$lib/utils/getTMDBData';
 	import { Progress } from '$lib/elements/ui/progress/index';
+	import { Button } from '$lib/elements/ui/button';
+	import * as Alert from '$lib/elements/ui/alert/index';
+	import Heart from '~icons/ion/heart';
 	import PeopleGrid from './PeopleGrid.svelte';
 
 	let {
@@ -177,6 +180,17 @@
 		<div class="mt-1 text-xs text-neutral-400">
 			{progress} of {progressMax} steps completed
 		</div>
+
+		<Alert.Root class="mx-auto mt-4 w-full bg-red-600/15">
+			<Heart class="size-4 outline-hidden" />
+			<div class="flex flex-row items-center justify-between">
+				<div>
+					<Alert.Title class="font-semibold">Please, donate!</Alert.Title>
+					<Alert.Description>While you wait, how about making a donation?</Alert.Description>
+				</div>
+				<Button href="https://enzon19.com/donate" target="_blank">Donate</Button>
+			</div>
+		</Alert.Root>
 	</div>
 {:else if data}
 	<PeopleGrid {data} />
