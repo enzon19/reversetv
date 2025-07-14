@@ -1,4 +1,6 @@
 <script>
+	import { browser } from '$app/environment';
+	import { PUBLIC_HOSTNAME } from '$env/static/public';
 	import { Button } from '$lib/elements/ui/button';
 	let { item, type, children } = $props();
 </script>
@@ -10,8 +12,12 @@
 <div class="flex flex-col gap-2 sm:container">
 	<div class="flex flex-col items-center justify-between gap-1.5 md:flex-row">
 		<h1 class="text-center text-3xl font-black sm:text-left">{item.title} ({item.year})</h1>
-		<Button href="https://trakt.tv/{type}/{item.ids.slug}" target="_blank" class="w-max"
-			>Open in Trakt</Button
+		<Button
+			href={browser
+				? window.location.href.replace(PUBLIC_HOSTNAME, 'https://trakt.tv')
+				: `https://trakt.tv/${type === 'movies' ? 'movies' : 'shows'}/${item.ids.slug}`}
+			target="_blank"
+			class="w-max">Open in Trakt</Button
 		>
 	</div>
 	{@render children?.()}
