@@ -1,6 +1,6 @@
 {
   "name": "reversetv",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "private": true,
   "scripts": {
     "dev": "vite dev",
@@ -33,6 +33,7 @@
     "@tailwindcss/vite": "^4.1.10",
     "@types/lodash": "^4.17.18",
     "@types/luxon": "^3.6.2",
+    "@vercel/analytics": "^1.5.0",
     "bits-ui": "^2.8.8",
     "clsx": "^2.1.1",
     "lodash": "^4.17.21",
