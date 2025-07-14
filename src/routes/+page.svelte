@@ -59,8 +59,8 @@
 {:else}
 	<h2 class="container mx-auto mt-2 text-center text-2xl">To start, please continue with Trakt.</h2>
 	<div class="mx-auto mt-2 text-center text-neutral-800 lg:w-[50%] dark:text-neutral-400">
-		Connect with Trakt to analyze common actors across your watched movies and TV shows,
-		highlighting connections between the productions.
+		Connect with Trakt to discover other appearances that each actor in a movie or series has had in
+		other productions based on your history.
 	</div>
 	<!-- TODO: Divulgação material -->
 {/if}
