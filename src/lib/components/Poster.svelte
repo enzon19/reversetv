@@ -19,7 +19,7 @@
 		src?: string | Promise<string>;
 	} = $props();
 
-	async function generateCover() {
+	async function generateCover(id: string | number, type: 'movie' | 'show') {
 		const headers = {
 			accept: 'application/json',
 			Authorization: 'Bearer ' + PUBLIC_TMDB_KEY
@@ -38,7 +38,12 @@
 		return imageURL ? 'https://image.tmdb.org/t/p/w200' + imageURL : '/placeholder.png';
 	}
 
-	if (!src) src = generateCover();
+	let srcProvidedExternally = src !== undefined;
+	$effect(() => {
+		if (!srcProvidedExternally) {
+			src = generateCover(id, type);
+		}
+	});
 </script>
 
 <a
