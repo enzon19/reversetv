@@ -5,7 +5,7 @@
   </h1>
 
   <p align="center">
-    Discover other appearances that each actor in a movie or series has had in other productions based on your Trakt history.
+    Discover other roles that each actor in a movie or series has had in other productions based on your Trakt history.
     <br />
     <a href="https://reversetv.enzon19.com"><strong>Website »</strong></a>
   </p>
@@ -27,7 +27,7 @@ Click an image to view full size.
 
 ## About
 
-Ever wondered where else you've seen that actor? With ReverseTV, you can instantly discover other appearances of every actor from the movies or shows you've watched based on your Trakt history.
+Ever wondered where else you've seen that actor? With ReverseTV, you can instantly discover other roles of every actor from the movies or shows you've watched based on your Trakt history.
 
 Just open any title, and ReverseTV will show a list of all the other productions each actor has been in that you already watched.
 
