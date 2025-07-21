@@ -164,7 +164,7 @@
 		</button>
 	</div>
 {:else if loading}
-	<div class="mx-auto w-[50%]">
+	<div class="mx-auto sm:w-[50%]">
 		<div class="mb-2 flex items-center justify-between">
 			<span class="font-medium">{Math.ceil((progress / progressMax) * 100)}%</span>
 		</div>
