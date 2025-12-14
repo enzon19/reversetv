@@ -22,49 +22,61 @@ export const load: LayoutServerLoad = async ({ cookies, fetch }) => {
 		return data.user;
 	}
 
+	async function refreshAccessToken(refresh_token: string) {
+		const body = {
+			refresh_token,
+			client_id: PUBLIC_TRAKT_ID,
+			client_secret: TRAKT_SECRET,
+			redirect_uri: PUBLIC_HOSTNAME + '/authorized',
+			grant_type: 'refresh_token'
+		};
+
+		const res = await fetch('https://api.trakt.tv/oauth/token', {
+			method: 'POST',
+			headers: { 'Content-Type': 'application/json' },
+			body: JSON.stringify(body)
+		});
+
+		if (!res.ok) throw new Error('Refresh token request failed');
+
+		const data = await res.json();
+		if (data.error) throw new Error(data.error);
+
+		return data;
+	}
+
 	try {
 		if (access_token) {
 			user = await getUser(access_token);
 		} else {
-			throw 'no access_token';
+			throw new Error('no access_token');
 		}
 	} catch (e) {
 		if (refresh_token) {
 			try {
-				const body = {
-					refresh_token,
-					client_id: PUBLIC_TRAKT_ID,
-					client_secret: TRAKT_SECRET,
-					redirect_uri: PUBLIC_HOSTNAME + '/authorized',
-					grant_type: 'refresh_token'
-				};
-
-				const res = await fetch('https://api.trakt.tv/oauth/token', {
-					method: 'POST',
-					headers: { 'Content-Type': 'application/json' },
-					body: JSON.stringify(body)
-				});
-
-				const data = await res.json();
-				if (data.error) throw data.error;
-
-				access_token = data.access_token;
+				const data = await refreshAccessToken(refresh_token);
 
 				cookies.set('access_token', data.access_token, {
 					httpOnly: true,
 					secure: true,
+					sameSite: 'lax',
 					path: '/',
-					maxAge: 60 * 60 * 24
+					maxAge: 60 * 60 * 24 * 7 // 7 days
 				});
+
 				cookies.set('refresh_token', data.refresh_token, {
 					httpOnly: true,
 					secure: true,
-					path: '/'
+					sameSite: 'lax',
+					path: '/',
+					maxAge: 60 * 60 * 24 * 365 // 1 year
 				});
 
 				user = await getUser(data.access_token);
 			} catch (refreshError) {
 				console.error('Token refresh failed:', refreshError);
+				cookies.delete('access_token', { path: '/' });
+				cookies.delete('refresh_token', { path: '/' });
 			}
 		}
 	}

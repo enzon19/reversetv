@@ -32,14 +32,17 @@ export const load: PageServerLoad = async ({ url, cookies, parent }) => {
 	cookies.set('access_token', data.access_token, {
 		httpOnly: true,
 		secure: true,
+		sameSite: 'lax',
 		path: '/',
-		maxAge: 60 * 60 * 24
+		maxAge: 60 * 60 * 24 * 7 // 7 days
 	});
 
 	cookies.set('refresh_token', data.refresh_token, {
 		httpOnly: true,
 		secure: true,
-		path: '/'
+		sameSite: 'lax',
+		path: '/',
+		maxAge: 60 * 60 * 24 * 365 // 1 year
 	});
 
 	redirect(303, '/');
