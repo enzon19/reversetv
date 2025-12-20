@@ -96,7 +96,7 @@
 			progressMax = credits.length + 2;
 			progress = 1;
 
-			const history = await getUserFullHistoryIDs(user?.username || 'username', acc || 'acc');
+			const history = await getUserFullHistoryIDs('me', acc || 'acc');
 
 			if (signal.aborted) return;
 			progress = 2;
