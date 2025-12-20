@@ -57,7 +57,7 @@
 					<span class="max-w-[100px] truncate">{user.username}</span>
 					<Avatar.Root>
 						<Avatar.Image alt={user.username} src={user.images.avatar.full} />
-						<Avatar.Fallback>{user.username.toUpperCase()[0]}</Avatar.Fallback>
+						<Avatar.Fallback>{user.username[0].toUpperCase()}</Avatar.Fallback>
 					</Avatar.Root>
 				</Popover.Trigger>
 				<Popover.Content class="mt-1">
