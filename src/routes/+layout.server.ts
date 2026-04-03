@@ -14,7 +14,8 @@ export const load: LayoutServerLoad = async ({ cookies, fetch }) => {
 				'Content-Type': 'application/json',
 				Authorization: 'Bearer ' + token,
 				'trakt-api-version': '2',
-				'trakt-api-key': PUBLIC_TRAKT_ID
+				'trakt-api-key': PUBLIC_TRAKT_ID,
+				'User-Agent': 'ReverseTV/0.1.7'
 			}
 		});
 		if (!res.ok) throw new Error('Failed to fetch user');
@@ -33,7 +34,12 @@ export const load: LayoutServerLoad = async ({ cookies, fetch }) => {
 
 		const res = await fetch('https://api.trakt.tv/oauth/token', {
 			method: 'POST',
-			headers: { 'Content-Type': 'application/json' },
+			headers: {
+				'Content-Type': 'application/json',
+				'User-Agent': 'ReverseTV/0.1.7',
+				'trakt-api-version': '2',
+				'trakt-api-key': PUBLIC_TRAKT_ID
+			},
 			body: JSON.stringify(body)
 		});
 

@@ -12,7 +12,10 @@ export const GET: RequestHandler = async ({ cookies }) => {
 	const request = await fetch('https://api.trakt.tv/oauth/revoke', {
 		method: 'POST',
 		headers: {
-			'Content-Type': 'application/json'
+			'Content-Type': 'application/json',
+			'User-Agent': 'ReverseTV/0.1.7',
+			'trakt-api-version': '2',
+			'trakt-api-key': PUBLIC_TRAKT_ID
 		},
 		body: JSON.stringify(body)
 	});

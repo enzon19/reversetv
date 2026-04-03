@@ -21,7 +21,10 @@ export const load: PageServerLoad = async ({ url, cookies, parent }) => {
 	const request = await fetch('https://api.trakt.tv/oauth/token', {
 		method: 'POST',
 		headers: {
-			'Content-Type': 'application/json'
+			'Content-Type': 'application/json',
+			'User-Agent': 'ReverseTV/0.1.7',
+			'trakt-api-version': '2',
+			'trakt-api-key': PUBLIC_TRAKT_ID
 		},
 		body: JSON.stringify(body)
 	});

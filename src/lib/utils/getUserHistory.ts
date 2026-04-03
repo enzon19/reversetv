@@ -68,7 +68,8 @@ export async function getUserMoviesHistory(username: string, acc?: string) {
 		'Content-Type': 'application/json',
 		Authorization: 'Bearer ' + acc,
 		'trakt-api-version': '2',
-		'trakt-api-key': PUBLIC_TRAKT_ID
+		'trakt-api-key': PUBLIC_TRAKT_ID,
+		'User-Agent': 'ReverseTV/0.1.7'
 	};
 
 	const moviesRequest = await fetch(`https://api.trakt.tv/users/${username}/watched/movies`, {
@@ -85,7 +86,8 @@ export async function getUserShowsHistory(username: string, acc?: string) {
 		'Content-Type': 'application/json',
 		Authorization: 'Bearer ' + acc,
 		'trakt-api-version': '2',
-		'trakt-api-key': PUBLIC_TRAKT_ID
+		'trakt-api-key': PUBLIC_TRAKT_ID,
+		'User-Agent': 'ReverseTV/0.1.7'
 	};
 
 	const showsRequest = await fetch(`https://api.trakt.tv/users/${username}/watched/shows`, {
