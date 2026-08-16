@@ -128,7 +128,8 @@ export async function getShowHistory(slug: string | number, acc?: string) {
 		'Content-Type': 'application/json',
 		Authorization: 'Bearer ' + acc,
 		'trakt-api-version': '2',
-		'trakt-api-key': PUBLIC_TRAKT_ID
+		'trakt-api-key': PUBLIC_TRAKT_ID,
+		'User-Agent': 'ReverseTV/0.1.7'
 	};
 
 	const showRequest = await fetch(
