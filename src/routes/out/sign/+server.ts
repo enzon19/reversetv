@@ -13,7 +13,7 @@ export const GET: RequestHandler = async ({ cookies }) => {
 		method: 'POST',
 		headers: {
 			'Content-Type': 'application/json',
-			'User-Agent': 'ReverseTV/0.1.7',
+			'User-Agent': 'ReverseTV/0.1.8',
 			'trakt-api-version': '2',
 			'trakt-api-key': PUBLIC_TRAKT_ID
 		},

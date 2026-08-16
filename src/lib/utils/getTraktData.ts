@@ -18,7 +18,7 @@ export async function getMovieData(slug: string) {
 		'Content-Type': 'application/json',
 		'trakt-api-version': '2',
 		'trakt-api-key': PUBLIC_TRAKT_ID,
-		'User-Agent': 'ReverseTV/0.1.7'
+		'User-Agent': 'ReverseTV/0.1.8'
 	};
 
 	const movieRequest = await fetch(`https://api.trakt.tv/movies/${slug}`, {
@@ -35,7 +35,7 @@ export async function getShowData(slug: string) {
 		'Content-Type': 'application/json',
 		'trakt-api-version': '2',
 		'trakt-api-key': PUBLIC_TRAKT_ID,
-		'User-Agent': 'ReverseTV/0.1.7'
+		'User-Agent': 'ReverseTV/0.1.8'
 	};
 
 	const showRequest = await fetch(`https://api.trakt.tv/shows/${slug}`, {
@@ -52,7 +52,7 @@ export async function searchData(query?: string) {
 		'Content-Type': 'application/json',
 		'trakt-api-version': '2',
 		'trakt-api-key': PUBLIC_TRAKT_ID,
-		'User-Agent': 'ReverseTV/0.1.7'
+		'User-Agent': 'ReverseTV/0.1.8'
 	};
 
 	const searchRequest = await fetch(`https://api.trakt.tv/search/movie,show/?query=${query}`, {

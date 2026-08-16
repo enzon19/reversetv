@@ -97,7 +97,7 @@ export async function getUserMoviesHistory(username: string, acc?: string) {
 		Authorization: 'Bearer ' + acc,
 		'trakt-api-version': '2',
 		'trakt-api-key': PUBLIC_TRAKT_ID,
-		'User-Agent': 'ReverseTV/0.1.7'
+		'User-Agent': 'ReverseTV/0.1.8'
 	};
 
 	const data = await fetchAllPaginated<TraktMovie>(
@@ -113,7 +113,7 @@ export async function getUserShowsHistory(username: string, acc?: string) {
 		Authorization: 'Bearer ' + acc,
 		'trakt-api-version': '2',
 		'trakt-api-key': PUBLIC_TRAKT_ID,
-		'User-Agent': 'ReverseTV/0.1.7'
+		'User-Agent': 'ReverseTV/0.1.8'
 	};
 
 	const data = await fetchAllPaginated<TraktShow>(
@@ -129,7 +129,7 @@ export async function getShowHistory(slug: string | number, acc?: string) {
 		Authorization: 'Bearer ' + acc,
 		'trakt-api-version': '2',
 		'trakt-api-key': PUBLIC_TRAKT_ID,
-		'User-Agent': 'ReverseTV/0.1.7'
+		'User-Agent': 'ReverseTV/0.1.8'
 	};
 
 	const showRequest = await fetch(
