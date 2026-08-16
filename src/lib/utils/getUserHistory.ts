@@ -63,6 +63,34 @@ type EpisodeDetails = {
 	ids: TraktIDs;
 };
 
+async function fetchAllPaginated<T>(
+	url: string,
+	headers: Record<string, string>,
+	limit = 100
+): Promise<T[]> {
+	let all: T[] = [];
+	let page = 1;
+
+	while (true) {
+		const u = new URL(url);
+		u.searchParams.set('page', String(page));
+		u.searchParams.set('limit', String(limit));
+
+		const res = await fetch(u.toString(), { method: 'GET', headers });
+		if (!res.ok) throw new Error(`Trakt error: ${res.status}`);
+
+		const data: T[] = await res.json();
+		all = all.concat(data);
+
+		const pageCount = Number(res.headers.get('x-pagination-page-count'));
+		if (page >= pageCount || data.length === 0) break;
+
+		page++;
+	}
+
+	return all;
+}
+
 export async function getUserMoviesHistory(username: string, acc?: string) {
 	const headers = {
 		'Content-Type': 'application/json',
@@ -72,13 +100,11 @@ export async function getUserMoviesHistory(username: string, acc?: string) {
 		'User-Agent': 'ReverseTV/0.1.7'
 	};
 
-	const moviesRequest = await fetch(`https://api.trakt.tv/users/${username}/watched/movies`, {
-		method: 'GET',
+	const data = await fetchAllPaginated<TraktMovie>(
+		`https://api.trakt.tv/users/${username}/watched/movies`,
 		headers
-	});
-
-	const moviesData: TraktMovie[] = await moviesRequest.json();
-	return moviesData.map((e) => ({ ...e, type: 'movie' as const }));
+	);
+	return data.map((e) => ({ ...e, type: 'movie' as const }));
 }
 
 export async function getUserShowsHistory(username: string, acc?: string) {
@@ -90,13 +116,11 @@ export async function getUserShowsHistory(username: string, acc?: string) {
 		'User-Agent': 'ReverseTV/0.1.7'
 	};
 
-	const showsRequest = await fetch(`https://api.trakt.tv/users/${username}/watched/shows`, {
-		method: 'GET',
+	const data = await fetchAllPaginated<TraktShow>(
+		`https://api.trakt.tv/users/${username}/watched/shows`,
 		headers
-	});
-
-	const showsData: TraktShow[] = await showsRequest.json();
-	return showsData.map((e) => ({ ...e, type: 'show' as const }));
+	);
+	return data.map((e) => ({ ...e, type: 'show' as const }));
 }
 
 export async function getShowHistory(slug: string | number, acc?: string) {
