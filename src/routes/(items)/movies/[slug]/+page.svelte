@@ -3,10 +3,10 @@
 	import Details from '$lib/components/Details.svelte';
 
 	let { data } = $props();
-	let { user, item, acc } = data;
+	let { user, item, historyIDs } = data;
 	const type = 'movies';
 </script>
 
 <Details {item} {type}>
-	<Results {user} {type} {item} {acc} />
+	<Results {user} {type} {item} {historyIDs} />
 </Details>

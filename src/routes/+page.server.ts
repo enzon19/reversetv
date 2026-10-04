@@ -1,3 +1,4 @@
+import { providerFor } from '$lib/server/providers';
 import { getUserMoviesHistory, getUserShowsHistory } from '$lib/utils/getUserHistory';
 import type { PageServerLoad } from './$types';
 
@@ -6,8 +7,8 @@ export const load: PageServerLoad = async ({ parent, cookies }) => {
 
 	if (!user) return {};
 
-	const movies = await getUserMoviesHistory('me', cookies.get('access_token'));
-	const shows = await getUserShowsHistory('me', cookies.get('access_token'));
+	const movies = await getUserMoviesHistory('me', cookies.get('access_token'), providerFor(cookies));
+	const shows = await getUserShowsHistory('me', cookies.get('access_token'), providerFor(cookies));
 
 	const history = [...movies, ...shows];
 

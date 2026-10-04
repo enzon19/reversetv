@@ -1,9 +1,12 @@
+import { media, search } from '$lib/server/wetrakr';
+import type { Provider } from '$lib/server/providers';
 import { PUBLIC_TRAKT_ID } from '$env/static/public';
 
 export type TraktItemData = {
 	title: string;
 	year: number;
 	ids: TraktIDs;
+	provider?: Provider;
 };
 
 export type TraktSearchResult = {
@@ -13,7 +16,8 @@ export type TraktSearchResult = {
 	movie?: TraktItemData;
 }[];
 
-export async function getMovieData(slug: string) {
+export async function getMovieData(slug: string, provider: Provider = 'trakt') {
+	if (provider === 'wetrakr') return media('movies', slug);
 	const headers = {
 		'Content-Type': 'application/json',
 		'trakt-api-version': '2',
@@ -30,7 +34,8 @@ export async function getMovieData(slug: string) {
 	return movieData as TraktItemData;
 }
 
-export async function getShowData(slug: string) {
+export async function getShowData(slug: string, provider: Provider = 'trakt') {
+	if (provider === 'wetrakr') return media('shows', slug);
 	const headers = {
 		'Content-Type': 'application/json',
 		'trakt-api-version': '2',
@@ -47,7 +52,9 @@ export async function getShowData(slug: string) {
 	return showData as TraktItemData;
 }
 
-export async function searchData(query?: string) {
+export async function searchData(query?: string, provider: Provider = 'trakt') {
+	if (provider === 'wetrakr') return search(query);
+	if (!query?.trim()) return [];
 	const headers = {
 		'Content-Type': 'application/json',
 		'trakt-api-version': '2',
@@ -55,7 +62,7 @@ export async function searchData(query?: string) {
 		'User-Agent': 'ReverseTV/0.1.8'
 	};
 
-	const searchRequest = await fetch(`https://api.trakt.tv/search/movie,show/?query=${query}`, {
+	const searchRequest = await fetch(`https://api.trakt.tv/search/movie,show/?query=${encodeURIComponent(query)}`, {
 		method: 'GET',
 		headers
 	});

@@ -5,7 +5,8 @@
 	"scripts": {
 		"dev": "vite dev",
 		"build": "vite build",
-		"preview": "vite preview"
+		"preview": "vite preview",
+		"test:providers": "node tests/providers.test.mjs"
 	},
 	"devDependencies": {
 		"@iconify-json/ion": "^1.2.4",

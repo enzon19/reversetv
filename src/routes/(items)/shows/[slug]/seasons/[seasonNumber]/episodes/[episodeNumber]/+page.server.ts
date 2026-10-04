@@ -1,8 +1,11 @@
+import type { PageServerLoad } from './$types';
+import { providerFor } from '$lib/server/providers';
 import { getShowData } from '$lib/utils/getTraktData';
 import { getShowHistory } from '$lib/utils/getUserHistory.js';
 import { redirect } from '@sveltejs/kit';
 
-export async function load({ params, cookies }) {
+export const load: PageServerLoad = async ({ params, cookies, parent }) => {
+	await parent();
 	const slug = params.slug;
 	let seasonNumber = parseInt(params.seasonNumber || '1');
 	let episodeNumber = parseInt(params.episodeNumber || '1');
@@ -10,7 +13,7 @@ export async function load({ params, cookies }) {
 	if (isNaN(seasonNumber)) redirect(303, '/shows/' + params.slug);
 	if (isNaN(episodeNumber)) redirect(303, `/shows/${params.slug}/seasons/${params.seasonNumber}`);
 
-	const showHistoryForUser = await getShowHistory(slug, cookies.get('access_token'));
+	const showHistoryForUser = await getShowHistory(slug, cookies.get('access_token'), providerFor(cookies));
 
 	const season = showHistoryForUser.seasons.find((e) => e.number === seasonNumber);
 	if (!season) redirect(303, '/shows/' + params.slug);
@@ -18,7 +21,7 @@ export async function load({ params, cookies }) {
 	if (episodeNumber > season.aired || episodeNumber < 1)
 		redirect(303, `/shows/${params.slug}/seasons/${params.seasonNumber}`);
 
-	const showData = await getShowData(slug);
+	const showData = await getShowData(slug, providerFor(cookies));
 
 	return {
 		item: { ...showData, ...showHistoryForUser },

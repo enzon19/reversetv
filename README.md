@@ -7,7 +7,7 @@
   <p align="center">
     Discover other roles that each actor in a movie or series has had in other productions based on your Trakt history.
     <br />
-    <a href="https://reversetv.enzon19.com"><strong>Website »</strong></a>
+    <a href="https://reversetv.enzon19.com"><strong>Website Ãƒâ€šÃ‚Â»</strong></a>
   </p>
 
 </p>
@@ -50,3 +50,24 @@ To reproduce the project locally for development or contribution:
    bun install
    bun dev
    ```
+
+
+### WeTrakr integration
+
+Users choose one tracking provider when signing in: Trakt or WeTrakr. Search, watched history and episode progress use that provider. Existing Trakt sessions continue to work. Tokens stay in HttpOnly cookies and history matching runs on the server.
+
+Configure the application credentials in your local environment and deployment settings:
+
+```dotenv
+WETRAKR_CLIENT_ID=your_application_key
+# Optional server-side client secret:
+WETRAKR_CLIENT_SECRET=your_application_secret
+```
+
+Register `PUBLIC_HOSTNAME/authorized/wetrakr` as the WeTrakr redirect URI (replace PUBLIC_HOSTNAME with the configured origin). The WeTrakr login button is always available. Do not commit credentials. Trakt uses the existing variables and `/authorized` callback.
+
+WeTrakr uses authorization code with S256 PKCE and state validation, 7-day access tokens and rotating 180-day refresh tokens. The adapter walks paginated responses and includes partially watched shows through episode history. Catalog links for WeTrakr use numeric WeTrakr IDs.
+
+API reference: https://api.wetrakr.com/#/authentication
+
+Run `npm run test:providers` to validate authentication and data adaptation with mocked API responses. A live login requires registered WeTrakr credentials.
