@@ -1,3 +1,5 @@
+import { movies, shows, progress } from '$lib/server/wetrakr';
+import type { Provider } from '$lib/server/providers';
 import { PUBLIC_TRAKT_ID } from '$env/static/public';
 
 export type TraktMovie = {
@@ -91,7 +93,8 @@ async function fetchAllPaginated<T>(
 	return all;
 }
 
-export async function getUserMoviesHistory(username: string, acc?: string) {
+export async function getUserMoviesHistory(username: string, acc?: string, provider: Provider = 'trakt') {
+	if (provider === 'wetrakr') return movies(acc!);
 	const headers = {
 		'Content-Type': 'application/json',
 		Authorization: 'Bearer ' + acc,
@@ -107,7 +110,8 @@ export async function getUserMoviesHistory(username: string, acc?: string) {
 	return data.map((e) => ({ ...e, type: 'movie' as const }));
 }
 
-export async function getUserShowsHistory(username: string, acc?: string) {
+export async function getUserShowsHistory(username: string, acc?: string, provider: Provider = 'trakt') {
+	if (provider === 'wetrakr') return shows(acc!);
 	const headers = {
 		'Content-Type': 'application/json',
 		Authorization: 'Bearer ' + acc,
@@ -123,7 +127,8 @@ export async function getUserShowsHistory(username: string, acc?: string) {
 	return data.map((e) => ({ ...e, type: 'show' as const }));
 }
 
-export async function getShowHistory(slug: string | number, acc?: string) {
+export async function getShowHistory(slug: string | number, acc?: string, provider: Provider = 'trakt') {
+	if (provider === 'wetrakr') return progress(slug, acc!);
 	const headers = {
 		'Content-Type': 'application/json',
 		Authorization: 'Bearer ' + acc,
@@ -147,13 +152,14 @@ export async function getShowHistory(slug: string | number, acc?: string) {
 export async function getUserFullHistoryIDs(
 	username: string,
 	acc: string,
-	type: keyof TraktIDs = 'tmdb'
+	type: keyof TraktIDs = 'tmdb',
+	provider: Provider = 'trakt'
 ) {
-	const movies = await getUserMoviesHistory(username, acc);
-	const shows = await getUserShowsHistory(username, acc);
+	const movies = await getUserMoviesHistory(username, acc, provider);
+	const shows = await getUserShowsHistory(username, acc, provider);
 
 	return [
-		...movies.map(({ movie }) => 'm_' + movie.ids[type]),
-		...shows.map(({ show }) => 't_' + show.ids[type])
+		...movies.filter(({ movie }) => movie.ids[type]).map(({ movie }) => 'm_' + movie.ids[type]),
+		...shows.filter(({ show }) => show.ids[type]).map(({ show }) => 't_' + show.ids[type])
 	];
 }

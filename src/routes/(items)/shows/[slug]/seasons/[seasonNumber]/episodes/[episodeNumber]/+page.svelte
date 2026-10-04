@@ -5,7 +5,7 @@
 	import ArrowBackCircleOutline from '~icons/ion/arrow-back-circle-outline';
 
 	let { data } = $props();
-	let { user, item, seasonNumber, episodeNumber, acc } = data;
+	let { user, item, seasonNumber, episodeNumber, historyIDs } = data;
 	const type = 'episodes';
 </script>
 
@@ -16,5 +16,5 @@
 		>
 		<h2 class="text-xl font-semibold">Season {seasonNumber}, Episode {episodeNumber}</h2>
 	</div>
-	<Results {user} {type} {item} itemNumber={[seasonNumber, episodeNumber]} {acc} />
+	<Results {user} {type} {item} itemNumber={[seasonNumber, episodeNumber]} {historyIDs} />
 </Details>

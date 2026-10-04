@@ -7,7 +7,7 @@
 	import ArrowBackCircleOutline from '~icons/ion/arrow-back-circle-outline';
 
 	let { data } = $props();
-	let { user, item, seasonNumber, acc } = data;
+	let { user, item, seasonNumber, historyIDs } = data;
 
 	const type = 'seasons';
 	let page = $state('select');
@@ -51,6 +51,6 @@
 			>
 			<h2 class="text-xl font-semibold">Episodes</h2>
 		</div>
-		<Results {user} {type} {item} itemNumber={seasonNumber} {acc} />
+		<Results {user} {type} {item} itemNumber={seasonNumber} {historyIDs} />
 	{/if}
 </Details>

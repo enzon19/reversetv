@@ -1,8 +1,6 @@
 <script lang="ts">
 	import '../app.css';
 
-	import { PUBLIC_TRAKT_ID, PUBLIC_HOSTNAME } from '$env/static/public';
-	import type { Snippet } from 'svelte';
 
 	import { Button } from '$lib/elements/ui/button';
 	import * as Avatar from '$lib/elements/ui/avatar';
@@ -14,12 +12,12 @@
 	import { goto } from '$app/navigation';
 
 	let { data, children } = $props();
-	let { user } = data;
+	let user = $derived(data.user);
 
 	let open: boolean = $state(false);
 	async function signOut() {
 		try {
-			const request = await fetch('/out/sign');
+			const request = await fetch('/out/sign', { method: 'POST' });
 			if (request.status !== 200) throw 'error';
 			open = false;
 			window.location.href = '/out';
@@ -50,7 +48,7 @@
 		<img src="/logo.png" class="h-14" alt="ReverseTV" />
 	</a>
 
-	<div class="justify-self-end">
+	<div class="flex flex-wrap justify-end gap-2 justify-self-end">
 		{#if user}
 			<Popover.Root bind:open>
 				<Popover.Trigger class="inline-flex cursor-pointer items-center gap-2">
@@ -65,12 +63,8 @@
 				</Popover.Content>
 			</Popover.Root>
 		{:else}
-			<a
-				href="https://trakt.tv/oauth/authorize?client_id={PUBLIC_TRAKT_ID}&redirect_uri={PUBLIC_HOSTNAME}/authorized&response_type=code"
-				class="inline-block"
-			>
-				<Button class="whitespace-nowrap">Continue with Trakt</Button>
-			</a>
+			<Button href="/login/trakt" class="whitespace-nowrap">Continue with Trakt</Button>
+			<Button href="/login/wetrakr" class="whitespace-nowrap">Continue with WeTrakr</Button>
 		{/if}
 	</div>
 </header>

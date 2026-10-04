@@ -1,25 +1,14 @@
-import { PUBLIC_TRAKT_ID } from '$env/static/public';
 import { TRAKT_SECRET } from '$env/static/private';
+import { providerFor, request, clientId, clearSession } from '$lib/server/providers';
 import type { RequestHandler } from './$types';
-
-export const GET: RequestHandler = async ({ cookies }) => {
-	const body = {
-		token: cookies.get('access_token'),
-		client_id: PUBLIC_TRAKT_ID,
-		client_secret: TRAKT_SECRET
-	};
-
-	const request = await fetch('https://api.trakt.tv/oauth/revoke', {
-		method: 'POST',
-		headers: {
-			'Content-Type': 'application/json',
-			'User-Agent': 'ReverseTV/0.1.8',
-			'trakt-api-version': '2',
-			'trakt-api-key': PUBLIC_TRAKT_ID
-		},
-		body: JSON.stringify(body)
-	});
-
-	if (request.status !== 200) return new Response('Error', { status: 500 });
-	return new Response('Success', { status: 200 });
+export const POST: RequestHandler = async ({ cookies, fetch }) => {
+ const provider = providerFor(cookies);
+ const token = cookies.get('access_token');
+ try {
+  if (token) await request(provider, provider === 'trakt' ? '/oauth/revoke' : '/oauth/logout', token,
+   provider === 'trakt' ? { token, client_id: clientId(provider), client_secret: TRAKT_SECRET } : { refresh_token: cookies.get('refresh_token') }, fetch);
+ } catch {
+  // Local sign-out must work even when the provider is unavailable or the token expired.
+ } finally { clearSession(cookies); }
+ return new Response('Success');
 };

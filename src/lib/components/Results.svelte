@@ -1,6 +1,5 @@
 <script lang="ts">
 	import { onMount, onDestroy } from 'svelte';
-	import { getUserFullHistoryIDs } from '$lib/utils/getUserHistory';
 	import {
 		getPersonCredits,
 		getMovieCredits,
@@ -22,13 +21,13 @@
 		item,
 		type,
 		itemNumber,
-		acc
+		historyIDs
 	}: {
 		user?: TraktUser;
 		item: any;
 		type: Items;
 		itemNumber?: number | number[];
-		acc?: string;
+		historyIDs: string[];
 	} = $props();
 
 	let progress: number = $state(0);
@@ -96,7 +95,7 @@
 			progressMax = credits.length + 2;
 			progress = 1;
 
-			const history = await getUserFullHistoryIDs('me', acc || 'acc');
+			const history = historyIDs;
 
 			if (signal.aborted) return;
 			progress = 2;

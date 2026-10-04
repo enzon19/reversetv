@@ -13,7 +13,7 @@
 	<div class="flex flex-col items-center justify-between gap-1.5 md:flex-row">
 		<h1 class="text-center text-3xl font-black sm:text-left">{item.title} ({item.year})</h1>
 		<Button
-			href={browser
+			href={item.provider === 'wetrakr' ? `https://wetrakr.com/${type === 'movies' ? 'movies' : 'shows'}/${item.ids.slug}` : browser
 				? window.location.href.replace(PUBLIC_HOSTNAME, 'https://trakt.tv')
 				: `https://trakt.tv/${type === 'movies' ? 'movies' : 'shows'}/${item.ids.slug}`}
 			target="_blank"

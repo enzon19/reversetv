@@ -10,14 +10,16 @@
 	import { DateTime } from 'luxon';
 
 	let { data } = $props();
-	let { user, history } = data;
+	let user = $derived(data.user);
+	let history = $derived(data.history);
 </script>
 
 <svelte:head>
-	<title>ReverseTV for Trakt</title>
+	<title>ReverseTV for Trakt and WeTrakr</title>
 </svelte:head>
 
 {#if user}
+	{#if data.provider === 'trakt'}
 	<Alert.Root class="mx-auto mb-2 max-w-max bg-yellow-600/15">
 		<Bulb class="size-4 outline-hidden" />
 		<Alert.Title class="font-semibold">Tip</Alert.Title>
@@ -31,6 +33,7 @@
 			<code>{PUBLIC_HOSTNAME.replace(/http\:\/\/|https\:\/\//, '')}/movies/the-matrix-1999</code>
 		</Alert.Description>
 	</Alert.Root>
+	{/if}
 	<div class="flex flex-col gap-2">
 		<h2 class="text-center text-2xl font-semibold sm:text-left">Last Watched</h2>
 		<PosterGrid
@@ -58,10 +61,10 @@
 	</div>
 {:else}
 	<h2 class="container mx-auto mt-2 text-center text-3xl font-extrabold">
-		To start, please continue with Trakt.
+		To start, choose Trakt or WeTrakr.
 	</h2>
 	<div class="mx-auto mt-2 text-center text-neutral-800 lg:w-[50%] dark:text-neutral-400">
-		Connect with Trakt to discover other roles that each actor in a movie or series has had in other
+		Connect with Trakt or WeTrakr to discover other roles that each actor in a movie or series has had in other
 		productions based on your history.
 	</div>
 	<h3 class="text-center text-xl font-bold">
